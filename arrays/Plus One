@@ -1,0 +1,69 @@
+
+#include <algorithm>
+using namespace std ;
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+
+
+        ///////////////////////////////////////////////////////// wrong solution
+
+        // double number = 0 ;
+        // double p = 1;
+        // vector<int> new_digits;
+        // int extracted_number ;
+
+        // for(int i =  digits.size()-1 ; i >=0 ; i--){
+        //    number = number + digits[i]*p;
+        //    p = p*10;
+        // }
+
+        // number = number + 1 ;
+        // cout<<"number = "<<number;
+
+        // while(number >= 1 ){
+        //     extracted_number = (int)number%10;
+        //     new_digits.push_back(extracted_number);
+        //     number = number/10;
+        // }
+
+        // reverse(new_digits.begin(),new_digits.end());
+    
+        ///////////////////////////////////////////////////////////////////// correct solution
+
+        int c = 0 ;
+        int index = digits.size() - 1;
+        vector<int>new_digits;
+
+        // increment in the first cell by one 
+          if(digits[index]+1 < 10){
+                new_digits.push_back(digits[index]+1);
+                c = 0;
+            }else if(digits[index]+1 == 10) {
+                new_digits.push_back(0);
+                c = 1;
+            } 
+
+        // then loop on the remaining cell
+        for(int i = digits.size()-2 ; i >= 0 ; i--){
+            if(digits[i]+c < 10){
+                new_digits.push_back(digits[i]+c);
+                c = 0;
+            }else if(digits[i]+c == 10) {
+                new_digits.push_back(0);
+                c = 1;
+            }          
+        }
+
+        // last check
+
+        if(c==1){
+            new_digits.push_back(c);
+        }
+
+        reverse(new_digits.begin(),new_digits.end());
+
+        return new_digits  ; 
+    }
+};
